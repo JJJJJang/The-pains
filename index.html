@@ -1,0 +1,699 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SlidesJS Standard Code Example</title>
+  <meta name="description" content="SlidesJS is a simple slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.">
+  <meta name="author" content="Nathan Searles">
+
+  <!-- SlidesJS Required (if responsive): Sets the page width to the device width. -->
+  <meta name="viewport" content="width=device-width">
+  <!-- End SlidesJS Required -->
+
+  <!-- CSS for slidesjs.com example -->
+  <link rel="stylesheet" href="css/example.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- End CSS for slidesjs.com example -->
+
+  <!-- SlidesJS Optional: If you'd like to use this design -->
+  <style>
+    body,html {background-color:white; background-image:url('나의아저씨/images/머리복잡.png')}
+
+    body {
+      -webkit-font-smoothing: antialiased;
+      font: normal 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #232525;
+      padding-top:70px;
+    }
+
+    #slides {display:none; border:1px solid; background-color:black;}
+    
+    #picture {width:70%; display:inline-block; background-color:black;}
+    .picture {display:inline-block; width:70%; height:50%; background-color:black;}
+    .picture>img  {margin:0 15%; width:70%;}
+    #picture>img {width:100%; height:100%; overflow:hidden;}
+    #earphone {width:25%; height:100%; position:relative; display:inline-block; float:left;
+               border:1px solid;}
+  
+   
+     .earphone1 {position:absolute;; top:10%; left:10%; width:25%; height:50%;} 
+     .earphone2 {position:absolute;; top:25%; left:15%; width:15%; height:50%;}
+ 
+    
+   
+    #text {display:inline-block; float:right; width:30%; color:white;
+    font-weight:border; font-size:12px; line-height:25px; letter-spacing:normal;
+    text-indent:10px; white-space:normal; word-break:break-all;}
+    .text {margin:80px 20px;}
+
+    .earear {margin-top:30px; -webkit-animation-name:earear;
+                              -webkit-animation-duration:8s;
+                              -webkit-animation-delay:1s;
+                              -webkit-animation-direction: alternate;
+                              -webkit-animation-iteration-count:infinite;
+                              -webkit-animation-timing-function:linear;}
+     
+             @-webkit-keyframes earear {0% {transform:rotatex(0deg); transform: rotate(0deg);}
+                                        100% {transform:rotatey(360deg); transform: rotate(360deg);}}
+             
+             
+
+    #earphone { -webkit-animation-name:earphone;
+                -webkit-animation-duration:5s;
+                -webkit-animation-delay:1s;
+                -webkit-animation-direction: alternate;
+                -webkit-animation-iteration-count:infinite;
+                -webkit-animation-timing-function:linear;}
+
+           @-webkit-keyframes earphone {0% {transform:rotatez(0deg); transform: rotatey(0deg);}
+                                         100% {transform:rotatey(360deg); transform: rotatey(360deg);}}
+
+                                 
+                         
+
+    .box {position:relative; width:33%; float:left;}
+
+    #slides .slidesjs-navigation {
+      margin-top:5px;
+    }
+
+    a.slidesjs-next,
+    a.slidesjs-previous,
+    a.slidesjs-play,
+    a.slidesjs-stop {
+      background-image: url(img/btns-next-prev.png);
+      background-repeat: no-repeat;
+      display:block;
+      width:12px;
+      height:18px;
+      overflow: hidden;
+      text-indent: -9999px;
+      float: left;
+      margin-right:5px;
+    }
+
+    a.slidesjs-next {
+      margin-right:10px;
+      background-position: -12px 0;
+    }
+
+    a:hover.slidesjs-next {
+      background-position: -12px -18px;
+    }
+
+    a.slidesjs-previous {
+      background-position: 0 0;
+    }
+
+    a:hover.slidesjs-previous {
+      background-position: 0 -18px;
+    }
+
+    a.slidesjs-play {
+      width:15px;
+      background-position: -25px 0;
+    }
+
+    a:hover.slidesjs-play {
+      background-position: -25px -18px;
+    }
+
+    a.slidesjs-stop {
+      width:18px;
+      background-position: -41px 0;
+    }
+
+    a:hover.slidesjs-stop {
+      background-position: -41px -18px;
+    }
+
+    .slidesjs-pagination {
+      margin: 7px 0 0;
+      float: right;
+      list-style: none;
+    }
+
+    .slidesjs-pagination li {
+      float: left;
+      margin: 0 1px;
+    }
+
+    .slidesjs-pagination li a {
+      display: block;
+      width: 13px;
+      height: 0;
+      padding-top: 13px;
+      background-image: url(img/pagination.png);
+      background-position: 0 0;
+      float: left;
+      overflow: hidden;
+    }
+
+    .slidesjs-pagination li a.active,
+    .slidesjs-pagination li a:hover.active {
+      background-position: 0 -13px
+    }
+
+    .slidesjs-pagination li a:hover {
+      background-position: 0 -26px
+    }
+
+    #slides a:link,
+    #slides a:visited {
+      color: #333
+    }
+
+    #slides a:hover,
+    #slides a:active {
+      color: #9e2020
+    }
+
+    .navbar {
+      overflow: hidden
+    }
+  </style>
+  <!-- End SlidesJS Optional-->
+
+  <!-- SlidesJS Required: These styles are required if you'd like a responsive slideshow -->
+  <style>
+    
+
+    #slides {
+      display: none
+    }
+
+    
+    .container {
+      margin: 0 auto
+    }
+
+    /* For tablets & smart phones */
+    @media (max-width: 767px) {
+      body {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .container {
+        width: auto
+      }
+    }
+
+    /* For smartphones */
+    @media (max-width: 480px) {
+      .container {
+        width: auto
+      }
+    }
+
+    /* For smaller displays like laptops */
+    @media (min-width: 768px) and (max-width: 979px) {
+      .container {
+        width: 724px
+      }
+    }
+
+    /* For larger displays */
+    @media (min-width: 1200px) {
+      .container {
+        width: 1100px;
+      }
+    }
+  </style>
+  <!-- SlidesJS Required: -->
+</head>
+<body>
+
+  <!-- SlidesJS Required: Start Slides -->
+  <!-- The container is used to define the width of the slideshow -->
+  <div class="container">
+    <div id="slides">
+
+
+      <div class="slide1">
+        <div id="picture">
+        <img src="나의아저씨/images/벽.png">
+        </div>
+        <div id="text">
+         <div class="text">
+          위 작업(‘너에게도 있는 아픔’)은 2018년 tv에서 방영된 ’나의 아저씨’ 라는 드라마를 바탕으로 일기형식으로 재해석한 짧은 형식의 전자책입니다.<br>
+          주인공의 감정을 돌이켜보면서 주인공이 자신의 내면에 깊게 남아있는 상처를 받아들이면서 변화되고, 더 나아가 다른 사람들의 상처도 이해하여 마음의 문을 여는 과정을 일기형식으로 풀어내었습니다.<br>
+          여기서 상처는 자신의 마음속에 숨겨져 있는 내면의 것을 의미합니다. <br>
+          상처들이 오랜기간동안 쌓이고 쌓이는 과정에서 지우기 힘들정도의 아픔의 흔적이 남겨지게 되며, 그것이 우리가 평상시 생활하는데도 많은 영향을 미칠정도로 강력하다고 생각했습니다.<br>
+          겉으로 금세 보여지다가 사라지는 단순한 의미의 물리적인 흔적이 아닌, 세상에 존재하지만 다른 사람의 눈에는 잘 보여지지 않는 내면에 깊게 세겨진 아픔의 흔적에 대해 말해보고 싶었습니다.<br>
+        <br>
+        <br> 
+        </div>
+        </div>
+        </div>
+
+
+      <div class="slide1">
+      <div id="picture">
+      <img src="나의아저씨/images/나의아저씨-메인화면.png">
+      </div>
+      <div id="text">
+       <div class="text">
+        어느 늦은밤, 얼굴에 경직된 표정을 가득 지은채 외로이 비탈진 골목길을 걸어가는 어린소녀가 보입니다.<br>
+        그녀는 허리까지 축 늘어진 가방끈을 매고는 밑창이 다 까진 허름한 신발을 질질 끌며 어디론가 걸어가고 있었습니다.<br>
+        퇴근하고 집에 갈때까지,주변의 다른 어떠한 곳에 눈길 하나 주지 않은채 앞만보며 묵묵히 걸어갑니다.
+        그녀는 아무 말도 하지 않았습니다. <br>
+        하지만 구부정한 자세, 축 늘어진 어깨를 계속 보고 있자니 어딘가 모르게 쓸쓸해 보였습니다.<br>
+        그녀는 지금 무슨 생각을 하고 있을까요? 몹시나 궁금했지만 어떠한 말도 저는 건네지 못했습니다.<br>
+       </div>
+      </div>
+      </div>
+
+      <div class="slide2">
+        <div id="picture">
+        <img src="나의아저씨/images/그룹 2.png">
+        </div>
+        <div id="text">
+          <div class="text">
+          그녀의 발길이 멈춰섭니다.<br>
+          그곳은 사람의 발길이 잘 닿지않은 으슥한 촌 동네였습니다. <br>
+          그녀는 불도 잘 들어오지 않는 작은 단칸방에서 할머니와 홀로 살고 있었습니다. <br>
+          사람의 온기라고는 전혀 느껴지지 않는 무척이나 차갑고 어두운 이 곳에서 그녀는 하루를 그렇게 마무리하고 있었습니다. <br>
+          </div>
+        </div>
+        </div>
+        
+      <div class="slide3">
+        <div id="picture">
+        <img src="나의아저씨/images/그룹 1.png">
+        </div>
+        <div id="text">
+          <div class="text" style="font-style:italic">
+            굳게 닫힌 철문처럼 마음의 문을 닫으며 살아왔다.<br>
+            어렸을때부터 겪어온 사람들의 수없는 모욕적인 말과 행동을 견뎌야 했고, 
+            그런 고통속에서 내 마음의 유연함은 점점 메말라갔다.<br>
+            시간이 지날수록 내가 처한 나의 환경은 점점 나라는 존재를 집어삼킬정도로 커져갔고, 그 모든 것들이 합쳐져 나를 갉아먹고 있었다.<br>
+            그런 모든 주변환경을 인내하고 받아들이기에는 나는 너무나 연약하고 어린 사람이었다.<br>
+          </div>
+        </div>
+        </div>
+
+
+        <div class="slide4-5">
+          <div class="picture">
+            <img src="나의아저씨/images/이지안상태5.png">
+        </div>
+        <div id="text">
+          <div class="text"  style="font-style:italic">
+            “좀 웃으렴” , “너는 애가 왜 이렇게 살갑지가 못하니” 이런 얘기를 들을 때마다 죽고싶었다. 정확히 말하면 그곳에서 사라지고 싶었다.<br>
+          </div>
+        </div>
+        </div> 
+        
+      <div class="slide4">
+          <div class="picture">
+            <img src="나의아저씨/images/이지안상태3.png">
+        </div>
+        <div id="text">
+          <div class="text"  style="font-style:italic">
+            험난한 이 세상을 살아가면서 나를 위로해준답시고 이런 말을 건네준 사람들이 나는 너무나도 싫었다. <br>
+            그들이 나와는 다른 세상의 사람들이라고 생각했기 때문이다.<br>
+          </div>
+        </div>
+        </div>
+
+        <div class="slide4-2">
+          <div class="picture">
+            <img src="나의아저씨/images/이지안상태2-2.png">
+        </div>
+        <div id="text">
+          <div class="text"  style="font-style:italic">
+            애초에 내가 처다도 볼 수 없는..나와는 너무나도 다른 존재..저 길가에 있는 버려져있는 쓰레기가 같은 나의 삶과는 너무나 대조된다고 생각했다.<br>
+            그들은 초라한 나와 달리 화려한 옷을 입고 있었고, 고급 승용차에, 비싼 브랜드 커피를 마시며 하루를 보내고 있었다. <br>
+            그렇기에 그들은 나를 이해할 수 없다고 생각했다. <br>
+          </div>
+        </div>
+        </div> 
+
+        <div class="slide4-3">
+          <div class="picture">
+            <img src="나의아저씨/images/이지안상태1.png">
+        </div>
+        <div id="text">
+          <div class="text"  style="font-style:italic">
+            위아래로 흝겨보며, 자신보다 한참 못한 하찮은 것으로 바라보는 차가운 눈빛,<br>
+            위하는 척하며 말을 건네지만 그 속에 숨겨진 위선가득한 말들과 조롱이 가득섞인 웃음,<br>
+          </div>
+        </div>
+        </div> 
+
+
+        <div class="slide4-5">
+          <div class="picture">
+            <img src="나의아저씨/images/이지안상태4.png">
+        </div>
+        <div id="text">
+          <div class="text"  style="font-style:italic">
+            가끔씩 도와주다가 어느 시점이 지나면 스스로 도움을 주었다는 사실에 만족하며 매정히 돌아서는 뒷모습까지..<br>
+            그 모든 것들이 나를 걷잡을 수 없는 아픔의 구렁텅이로 내몰게 만들었다.<br>
+          </div>
+        </div>
+        </div> 
+
+
+        <div class="slide4-6">
+          <div class="picture">
+            <img src="나의아저씨/images/이지안상태6.png">
+        </div>
+        <div id="text">
+          <div class="text"  style="font-style:italic">
+            너무나 비참했다...<br>
+            시간이 많이 지났지만 그 아픔들이 흔적이 내 가슴에 깊게 남았고, 나를 두고두고 괴롭혔다.<br>
+          </div>
+        </div>
+        </div> 
+
+
+         <div class="slide6">
+        <div id="picture">
+        <img src="나의아저씨/images/이어폰.png" class="earear">
+        </div>
+        <div id="text">
+          <div class="text"  style="font-style:italic">
+            이 모든 것들을 벗어나기 위해 노력도 해보았다.<br>
+            할 수 있는 한 갖은 방법을 다 동원해보았다.<br>
+            나를 무시하는 사람들에게 악에 바쳐 소리도 질러보고, 상대의 약점을 이용해서 그들을 괴롭혀도 보았다. <br>
+            하지만 이 비참한 현실을 벗어나려고 하면 할수록 현실은 보란듯이 나를 더욱 옥죄여왔다.<br>
+            마치 이리저리 엉킨 실타래를 풀려할수록 더 복잡하게만 꼬이듯이 현실을 벗어나기 위해 발버둥을 칠수록 더욱 어두움에 갇히고 있음을 느꼈다.<br>
+            노력 아닌 노력을 해도 크게 달라지는 것은 없었고, 나의 행동으로 뒤에 기다리고 있는 더 많은 후폭풍을 마주해야만 했다.<br>
+          </div>
+        </div>
+        </div>
+
+
+      <div class="slide7">
+          <div id="picture">
+          <img src="나의아저씨/images/이어폰2.png">
+          </div>
+          <div id="text">
+            <div class="text"  style="font-style:italic">
+              너무 복잡하다. 나만 이런 것일까..<br>
+              이제는 이 복잡하게 얽힌 내 마음을 그대로 방치하게 되버렸다.<br>
+              너무나 얽히고 섥혀서 어디서부터 풀어나가야 할지를 잘 모르겠다.<br>
+              내 머릿속도 마음속도..너무나 괴롭고 복잡하기만 했다.<br>
+            </div>
+          </div>
+          </div>
+
+      <div class="slide8">
+            <div id="picture">
+            <img src="나의아저씨/images/상자박스.png">
+            </div>
+            <div id="text">
+              <div class="text"  style="font-style:italic"> 
+                나를 짓누르는 삶의 무게가 나는 너무나 무거웠다.<br>
+                나만을 바라보는 가족, 빚 더미들, 나를 바라보는 사회의 편견어린 시선들, 사람들의 끝없는 오해, 내가 평생을 짊어지고 가야 하는 것들이었다. <br>
+                그것들의 무게가 나는 감당하기 힘들정도로 버겁기만 할 뿐이었다.<br>
+                여기 꾸깃하게 짓눌려있는 수많은 종이 박스들처럼 매일 나를 짓눌러왔다.<br>
+              </div>
+            </div>
+            </div> 
+            
+      <div class="slide9">
+          <div id="picture">
+          <img src="나의아저씨/images/상자박스2.png">
+          </div>
+          <div id="text">
+            <div class="text"  style="font-style:italic">
+             사람들은 뭐가 그렇게 행복한 것일까? 늘 의문이었다.<br>
+             언제나 별것도 아닌 일에 희락을 느끼며 살아가는 사람들에게서 슬픔을 찾아볼 수 없었기 때문이다.<br>
+             그들에게 짊어진 커다란 인생의 짐들이 보이지 않았다.<br>
+             나에게만 짊어진 이 고난의 무게가 너무나 가혹하게 느껴졌다.<br>
+          </div>
+          </div>
+          </div>
+
+
+
+      <div class="slide10">
+          <div id="picture">
+          <img src="나의아저씨/images/벽에 이어폰대기.png">
+          </div>
+          <div id="text">
+            <div class="text">
+              그렇게 소녀는 오늘도 어김없이 귀 양쪽에 꾸겨진 이어폰을 끼며, 세상을 등진 채 하염없이 걸어갔습니다.<br>
+              자신의 마음속에 있는 어떠한 외침조차 무시한채..근근히 버티며 하루를 살아갔습니다.<br>
+              그러던 와중 누군가를 만나게 됐습니다. 그전에 만났던 어른들과는 다른 사람 같음을 본능적으로 느끼게 되었습니다.<br>
+          </div>
+          </div>
+        </div>
+
+
+
+          <div class="slide11">
+            <div id="picture">
+            <img src="나의아저씨/images/벽에 이어폰대기2.png">
+            </div>
+            <div id="text">
+              <div class="text"  style="font-style:italic">
+                그 사람을 만나고 보면서 부터 내 마음안에 무언가가 요동치는 것을 느꼈다.<br>
+                그동안 주변에서 보지 못했던 유형의 사람이었다.<br>
+                그는 대기업의 높은 직위를 가졌고, 그를 따르는 사람도 많아 보였다. 남부러울 것 없는 삶이었다.<br>
+                하지만 나는 그에게서 묘한 동질감을 느꼈다. <br>
+                웃고 있었지만 그의 눈은 하나도 웃고 있지 않았기 때문이다. <br>
+                그저 나와 다를바없이 외롭고 슬퍼보였다.<br>
+            </div>
+            </div>
+          </div>
+
+          
+            <div class="slide11">
+              <div id="picture">
+              <img src="나의아저씨/images/현실1.png">
+              </div>
+              <div id="text">
+                <div class="text"  style="font-style:italic">
+                  그의 존재를 인식하고 나서부터 고의반, 자의반으로 세상 밖에 있는 사람들의 이야기를 전부 듣게 되었다.<br>
+                  그 안에는 예상한대로 더럽고 추악한 말들이 가득했다.<br>
+                  이 현실의 실상을 적나라하게 보여주는 듯했다. 들으면 들을수록 가슴 한 구석이 저며왔다.<br>
+                  가슴 깊이 묻어왔던 과거의 흔적들이 그들에 의해 다시한번 세상밖에 꺼내 보여지곤 했다.<br>
+                  나의 치부를 그들은 이미 나보다도 더 잘 알고 있었다.<br>
+                  아무도 모르게 꽁꽁 감추어왔던 나의 치부들이 하나둘씩 세상에 공개되고 있다.<br>
+                  너무나 고통스러웠다. 나 역시 외면한채 나를 깊이 감추어왔고 그게 최선의 방법이라고 생각했다.<br>
+                  내 안의 상처의 흔적들을 감추기 위해 매일을 감정없는 사람의 가면을 쓴 채 살아왔다.<br>
+                  억지로 나를, 나의 아픔을 숨기려고 했다. 그래서 그렇게 불안했나보다. <br>
+              </div>
+              </div>
+            </div>
+
+
+          <div class="slide11">
+          <div id="picture">
+          <img src="나의아저씨/images/현실2.png">
+          </div>
+          <div id="text">
+            <div class="text"  style="font-style:italic">
+              나의 실상을 적나라하게 마주하는 한 편, 주변사람들에게 시선을 돌리고 문득 그 사람들의 이야기도 듣게되었다.<br>
+              그들의 진짜 마음속에 귀를 기울고 그 벽 너머에 있는 사람들의 얘기를 들어보면서 그동안 내가 보지 못했던 모습들이 보였다.<br>
+              그리고 알게되었다. 그들 모두 나와 다를바없는 인간이라는 것을..<br>
+          </div>
+          </div>
+        </div>
+
+
+        <div class="slide11">
+          <div id="picture">
+          <img src="나의아저씨/images/현실3.png">
+          </div>
+          <div id="text">
+            <div class="text"  style="font-style:italic">
+              내가 생각하고 꿈꿔왔던 완벽한 사람은 이 세상에 존재하지 않았다.<br>
+              보이지 않았지만 모두가 엄청난 고통의 무게를 지니고 있었고, 저마다의 아픔을 가지고 있었다.<br>
+              내가 나에게 갇혀 잘 보이지 않았을 뿐, 그들 모두 자기나름대로 아무도 알지 못했던 스토리를 가지고 있었다.<br>
+              나는 그저 하루를 근근히 버티면서 살아가는 지독히 외롭고 고통스러운 삶을 살고있는 사람 중 한명일 뿐이었다.<br>
+          </div>
+          </div>
+        </div> 
+
+
+        <div class="slide11">
+          <div id="picture" style="background-image:url(나의아저씨/images/현실3.png)">
+
+            <div id="earphone">
+            <img src="나의아저씨/images/이어폰줄1.png" id="ear">
+            </div>
+
+             <div id="earphone">
+              <img src="나의아저씨/images/이어폰줄2.png" id="ear">
+            </div>
+
+            <div id="earphone">
+              <img src="나의아저씨/images/이어폰줄3.png" id="ear">
+            </div>
+
+            <div id="earphone">
+              <img src="나의아저씨/images/이어폰줄4.png" id="ear">
+            </div>
+
+            <div id="earphone">
+              <img src="나의아저씨/images/이어폰줄5.png" id="ear">
+            </div>
+
+            <div id="earphone">
+              <img src="나의아저씨/images/이어폰줄6.png" id="ear">
+            </div>
+
+            <div id="earphone">
+              <img src="나의아저씨/images/이어폰줄1.png" id="ear">
+            </div>
+
+            <div id="earphone">
+              <img src="나의아저씨/images/이어폰줄2.png" id="ear">
+            </div>
+
+
+            <div class="earphone1">
+              <img src="나의아저씨/images/이어폰줄1.png" id="ear">
+            </div>
+
+            <div class="earphone2">
+              <img src="나의아저씨/images/이어폰줄2.png" id="ear">
+            </div>
+
+            <div class="earphone3">
+              <img src="나의아저씨/images/이어폰줄3.png" id="ear">
+            </div>
+            
+            <div class="earphone4">
+              <img src="나의아저씨/images/이어폰줄4.png" id="ear">
+            </div>
+
+            <div class="earphone5">
+              <img src="나의아저씨/images/이어폰줄5.png" id="ear">
+            </div>
+
+
+          </div>
+          <div id="text">
+            <div class="text"  style="font-style:italic">
+              내 인생만 이렇게 꼬인줄 알았는데..아니었구나.<br>
+              모두가 형태는 다를 뿐 다들 장난아니게 복잡하게 얽혀있는 삶을 살고 있었다.<br>
+              꼬일대로 꼬여 어디서 부터 어떻게 풀어야할지 감이 도저히 잡히질 않았을정도로,,<br>
+              이 모든게 화려한 옷을 입고, 비싼 커피를 마시며, 쾌적한 환경에서 떵떵거리며 살아가는 <br>
+              내가 나와 다를 것이라고 생각했던 모든 사람들의 숨겨진 진짜 모습이었다.<br>
+              그랬다. 모두가 다 보기좋게 엉켜진 채로 살아가고 있었다. <br>
+
+             
+          </div>
+          </div>
+        </div>   
+
+
+
+        <div class="slide11">
+          <div id="picture">
+          <img src="나의아저씨/images/이어폰여러개.png" class="box">
+          </div>
+          <div id="text">
+            <div class="text"  style="font-style:italic">
+              배신당하고, 버림받고, 낙오되고, 미끄러지고…<br>
+              질투하고, 원망하고, 분노하고, 그러다 해탈하고…<br>
+              이 모든게 일상이었다.<br>
+
+              어떻게 이런 것들을 겪을 수가 있을까…<br>
+              모두가 다 신문1면에 나올법한 삶을 살고 있었다.<br>
+          </div>
+          </div>
+        </div>
+
+
+        <div class="slide11">
+          <div class="picture">
+          <img src="나의아저씨/images/상자박스1.png" class="box">
+          </div>
+          <div id="text">
+            <div class="text" style="font-style:italic">
+             
+              그저 나만이 이 고난의 소용돌이 속에서 헐떡이며 사는 줄 알았기에<br>
+              나를 함부로 취급하는 주변사람을 원망했고, 이렇게 밖에 살 수 없는 나를 원망했다.<br>
+
+              하지만 고개를 치켜올려 내가 등돌린 세상과 마주했을 때 펼쳐지는 사람들의 모습을 마주하고 나니<br>
+              나를 포함한 모두가 자신의 어려움의 무게에 짓눌려 살아가고 있음을 알게됐다.<br>
+          </div>
+          </div>
+        </div>
+
+
+        <div class="slide11">
+          <div class="picture">
+          <img src="나의아저씨/images/상자박스3.png" class="box">
+          </div>
+          <div id="text">
+            <div class="text" style="font-style:italic">
+
+
+              꾸역——꾸역——<br>
+              평생을 지고 살아가야 하는 짐의 무게에 짓눌려 각자가 자신의 길을 가고 있었던 것이다.<br>
+
+              애처로웠다.<br>
+          </div>
+          </div>
+        </div>
+
+
+    
+      <div class="slide11">
+          <div id="picture">
+          <img src="나의아저씨/images/마음열림.png">
+          </div>
+          <div id="text">
+            <div class="text">
+              소녀는 늘 상 불안함에 시달려왔습니다. 어느 한 순간도 마음편할 날이 없었습니다.<br>
+              늘 암담했으며, 어제와 다를 바 없는 오늘을 체념한 채, 내 안의 모진 나를 괴롭힌 채 살아왔습니다.<br>
+              하지만 이제 더 이상 그러지 않기로 했습니다.<br>
+              내가 만들어왔던 나만의 세상에서 깨어나 당당히 살아가기로 했습니다.<br>
+              내 잘못을 인정하고, 내 자신을 받아들이고 더 나아가 주변사람들을 받아들이기로 했습니다.<br>
+
+
+              “나는 그 애가 참 안타까워. 경직된 사람들은 모두 불쌍해. 경직된 걔의 표정이 걔의 인생을 다 말해주잖아.”<br>
+              세상에는 나를 웃게 만드는 사람도 존재함을 알게되었습니다. <br>
+              태어나서 처음 느껴보는 따뜻함을 느낄 수도 있었고, 그런 따뜻함을 가진 사람이 내 옆에 존재하고 있음을 받아들이기로 했습니다.<br>
+          </div>
+          </div>
+        </div>   
+        
+
+ 
+    </div>
+
+  
+  </div>
+
+
+  <!-- End SlidesJS Required: Start Slides -->
+
+  <!-- SlidesJS Required: Link to jQuery -->
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <!-- End SlidesJS Required -->
+
+
+  <!-- SlidesJS Required: Link to jquery.slides.js -->
+  <script src="js/jquery.slides.min.js"></script>
+  <!-- End SlidesJS Required -->
+
+  <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
+  <script>
+    $(function() {
+      $('#slides').slidesjs({
+        width: 940,
+        height: 528,
+        play: {
+          active: true,
+          auto: true,
+          interval: 10000,
+          swap: true
+        }
+      });
+    });
+
+
+  </script>
+  <!-- End SlidesJS Required -->
+
+
+</body>
+</html>
